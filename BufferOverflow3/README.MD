@@ -7,9 +7,25 @@ the challenge provides a binary,it's source code and a netcat service.
 - we have a print_flag function that calls system("/bin/bash") only if the first argument = 0xdeadbeef and the second argument = 0xc0febabe, so we have to use gadgets to
 fill the arguments with the required values.
 # Exploitation
-- find the size of the buffer to overwrite the saved return pointer RIP
+- find the size of the buffer to overwrite the saved instruction pointer RIP
 - find the address of print_flag function
 - find gadget addresses : pop rdi and pop rsi
 - chain our payload
-
-
+## Overwriting the saved return pointer address
+to overwrite the saved rip, we can use PEDA to create a pattern then find the offset.
+- set a breakpoint at ret instruction in main
+- pattern create 200
+- examine the rsp x $rsp
+- pattern offset ""
+we can see that the offset to the saved rip is : 
+## Address of print_flag
+inside gdb : 
+- p print_flag
+## Gadgets
+using ropper, we can find the wanted gadgets : 
+- ropper --file task7 --search "pop rdi"
+- ropper --file task7 --search "pop ret"
+## Payload
+```python
+from pwn import *
+```
