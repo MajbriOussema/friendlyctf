@@ -19,7 +19,9 @@ we can see that the address is : 0x0804c034
 the format string vulnerability allows us to write into memory using the format specifier %n.
 So we have to write the address of target_variable and use %n to change it's value, the problem is finding the location of target_value in the stack.
 let's try giving AAAA%x %x %x %x %x %x %x %x as input to find the right offset.
+
 ![offset](offset.PNG)
+
 the address is the 4th address in the stack, to reference directly the address, we can use %4$x
 Now it's simple, we just write the address of the target_variable + %4$n
 ## Payload
