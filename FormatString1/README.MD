@@ -1,4 +1,4 @@
-![description](fms1.png)
+![description](fms1.PNG)
 
 # Gathering Information
 the challenge provides a binary,it's source code and a netcat service.
@@ -12,7 +12,7 @@ the challenge provides a binary,it's source code and a netcat service.
 ## find the address of target_variable
 target_variable is a global variable, and since it's initialized , it's in the .data section.
 to find it's address, we can use objdump.
-![objdump](objdump.png)
+![objdump](objdump.PNG)
 
 we can see that the offset to the saved rip is : 72
 ## Address of print_flag
