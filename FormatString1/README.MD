@@ -9,16 +9,15 @@ the challenge provides a binary,it's source code and a netcat service.
 - we have to chain a payload that overwrites the target_variable
 - find the address of target_variable
 - find the offset to the the first 4 bytes to overwrite
-## find the address of target_variable
+## Finding the address of target_variable
 target_variable is a global variable, and since it's not initialized , it's in the .bss section.
 to find it's address, we can use objdump.
 ![objdump](objdump.PNG)
 
 we can see that the address is : 0x0804c034
-## Address of print_flag
-inside gdb : 
-- p print_flag
-the function is at : 0x40121f 
+## Finding Offset
+the format string vulnerability allows us to write into memory using the format specifier %n.
+So we have to write the address of target_variable and use %n to
 ## Gadgets
 using ropper, we can find the wanted gadgets : 
 - ropper --file task7 --search "pop rdi" #0x0000000000401323
