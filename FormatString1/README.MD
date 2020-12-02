@@ -10,11 +10,11 @@ the challenge provides a binary,it's source code and a netcat service.
 - find the address of target_variable
 - find the offset to the the first 4 bytes to overwrite
 ## find the address of target_variable
-target_variable is a global variable, and since it's initialized , it's in the .data section.
+target_variable is a global variable, and since it's not initialized , it's in the .bss section.
 to find it's address, we can use objdump.
 ![objdump](objdump.PNG)
 
-we can see that the offset to the saved rip is : 72
+we can see that the address is : 0x0804c034
 ## Address of print_flag
 inside gdb : 
 - p print_flag
